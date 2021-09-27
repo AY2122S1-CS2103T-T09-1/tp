@@ -23,6 +23,7 @@ import seedu.address.model.studyspot.Address;
 import seedu.address.model.studyspot.Email;
 import seedu.address.model.studyspot.Name;
 import seedu.address.model.studyspot.Phone;
+import seedu.address.model.studyspot.Remark;
 import seedu.address.model.studyspot.StudySpot;
 import seedu.address.model.tag.Tag;
 
@@ -102,9 +103,10 @@ public class EditCommand extends Command {
         Phone updatedPhone = editStudySpotDescriptor.getPhone().orElse(studySpotToEdit.getPhone());
         Email updatedEmail = editStudySpotDescriptor.getEmail().orElse(studySpotToEdit.getEmail());
         Address updatedAddress = editStudySpotDescriptor.getAddress().orElse(studySpotToEdit.getAddress());
+        Remark updatedRemark = studySpotToEdit.getRemark(); // edit command does not allow editing remarks
         Set<Tag> updatedTags = editStudySpotDescriptor.getTags().orElse(studySpotToEdit.getTags());
 
-        return new StudySpot(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new StudySpot(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemark, updatedTags);
     }
 
     @Override

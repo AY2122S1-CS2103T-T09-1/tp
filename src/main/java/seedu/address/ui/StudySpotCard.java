@@ -40,6 +40,8 @@ public class StudySpotCard extends UiPart<Region> {
     private Label email;
     @FXML
     private FlowPane tags;
+    @FXML
+    private Label remark;
 
     /**
      * Creates a {@code StudySpotCode} with the given {@code StudySpot} and index to display.
@@ -51,6 +53,7 @@ public class StudySpotCard extends UiPart<Region> {
         name.setText(studySpot.getName().fullName);
         phone.setText(studySpot.getPhone().value);
         address.setText(studySpot.getAddress().value);
+        remark.setText(studySpot.getRemark().value);
         email.setText(studySpot.getEmail().value);
         studySpot.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

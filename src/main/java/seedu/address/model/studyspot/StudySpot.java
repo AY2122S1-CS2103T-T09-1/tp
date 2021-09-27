@@ -19,6 +19,7 @@ public class StudySpot {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final Remark remark;
 
     // Data fields
     private final Address address;
@@ -27,13 +28,14 @@ public class StudySpot {
     /**
      * Every field must be present and not null.
      */
-    public StudySpot(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public StudySpot(Name name, Phone phone, Email email, Address address, Remark remark, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, tags, remark);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.remark = remark;
     }
 
     public Name getName() {
@@ -50,6 +52,10 @@ public class StudySpot {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Remark getRemark() {
+        return remark;
     }
 
     /**
@@ -92,6 +98,7 @@ public class StudySpot {
                 && otherStudySpot.getPhone().equals(getPhone())
                 && otherStudySpot.getEmail().equals(getEmail())
                 && otherStudySpot.getAddress().equals(getAddress())
+                && otherStudySpot.getRemark().equals(getRemark())
                 && otherStudySpot.getTags().equals(getTags());
     }
 
@@ -110,7 +117,9 @@ public class StudySpot {
                 .append("; Email: ")
                 .append(getEmail())
                 .append("; Address: ")
-                .append(getAddress());
+                .append(getAddress())
+                .append("; Remark: ")
+                .append(getRemark());
 
         Set<Tag> tags = getTags();
         if (!tags.isEmpty()) {
