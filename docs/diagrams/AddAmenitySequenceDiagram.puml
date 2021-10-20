@@ -1,0 +1,69 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":StudyTrackerParser" as StudyTrackerParser LOGIC_COLOR
+participant ":AddCommandParser" as AddCommandParser LOGIC_COLOR
+participant "d:AddCommand" as AddCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("add n/COM1 r/5 m/wifi")
+activate LogicManager
+
+LogicManager -> StudyTrackerParser : parseCommand("add n/COM1 r/5 m/wifi")
+activate StudyTrackerParser
+
+create AddCommandParser
+StudyTrackerParser -> AddCommandParser
+activate AddCommandParser
+
+AddCommandParser --> StudyTrackerParser
+deactivate AddCommandParser
+
+StudyTrackerParser -> AddCommandParser : parse("n/COM1 r/5 m/wifi")
+activate AddCommandParser
+
+create AddCommand
+AddCommandParser -> AddCommand
+activate AddCommand
+
+AddCommand --> AddCommandParser : d
+deactivate AddCommand
+
+AddCommandParser --> StudyTrackerParser : d
+deactivate AddCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddCommandParser -[hidden]-> StudyTrackerParser
+destroy AddCommandParser
+
+StudyTrackerParser --> LogicManager : d
+deactivate StudyTrackerParser
+
+LogicManager -> AddCommand : execute()
+activate AddCommand
+
+AddCommand -> Model : addStudySpot(COM1)
+activate Model
+
+Model --> AddCommand
+deactivate Model
+
+create CommandResult
+AddCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddCommand
+deactivate CommandResult
+
+AddCommand --> LogicManager : result
+deactivate AddCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
