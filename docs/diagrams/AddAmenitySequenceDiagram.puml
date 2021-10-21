@@ -5,12 +5,13 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":StudyTrackerParser" as StudyTrackerParser LOGIC_COLOR
 participant ":AddCommandParser" as AddCommandParser LOGIC_COLOR
-participant "d:AddCommand" as AddCommand LOGIC_COLOR
+participant "a:AddCommand" as AddCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
+participant "m:Amenity" as Amenity MODEL_COLOR
 end box
 
 [-> LogicManager : execute("add n/COM1 r/5 m/wifi")
@@ -33,23 +34,28 @@ create AddCommand
 AddCommandParser -> AddCommand
 activate AddCommand
 
-AddCommand --> AddCommandParser : d
+AddCommand --> AddCommandParser : a
 deactivate AddCommand
 
-AddCommandParser --> StudyTrackerParser : d
+AddCommandParser --> StudyTrackerParser : a
 deactivate AddCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 AddCommandParser -[hidden]-> StudyTrackerParser
 destroy AddCommandParser
 
-StudyTrackerParser --> LogicManager : d
-deactivate StudyTrackerParser
+StudyTrackerParser --> LogicManager : a
 
 LogicManager -> AddCommand : execute()
 activate AddCommand
 
 AddCommand -> Model : addStudySpot(COM1)
 activate Model
+create Amenity
+Model -> Amenity
+activate Amenity
+Amenity --> StudyTrackerParser : m
+deactivate Amenity
+deactivate StudyTrackerParser
 
 Model --> AddCommand
 deactivate Model
