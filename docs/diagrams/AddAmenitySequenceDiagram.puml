@@ -11,7 +11,6 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant "m:Amenity" as Amenity MODEL_COLOR
 end box
 
 [-> LogicManager : execute("add n/COM1 r/5 m/wifi")
@@ -50,11 +49,6 @@ activate AddCommand
 
 AddCommand -> Model : addStudySpot(COM1)
 activate Model
-create Amenity
-Model -> Amenity
-activate Amenity
-Amenity --> StudyTrackerParser : m
-deactivate Amenity
 deactivate StudyTrackerParser
 
 Model --> AddCommand
