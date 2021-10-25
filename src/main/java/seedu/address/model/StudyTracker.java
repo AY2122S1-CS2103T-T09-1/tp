@@ -114,6 +114,9 @@ public class StudyTracker implements ReadOnlyStudyTracker {
         requireNonNull(editedStudySpot);
 
         studySpots.setStudySpot(target, editedStudySpot);
+        if (editedStudySpot.isFavourite() && favouriteStudySpots.contains(target)) {
+            favouriteStudySpots.setStudySpot(target, editedStudySpot);
+        }
     }
 
     /**
