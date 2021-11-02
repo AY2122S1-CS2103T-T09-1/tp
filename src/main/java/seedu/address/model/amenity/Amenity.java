@@ -69,7 +69,7 @@ public class Amenity {
      * Format state as text for viewing.
      */
     public String toString() {
-        return '[' + amenityType + "] ";
+        return '[' + amenityType + ']';
     }
 
 }

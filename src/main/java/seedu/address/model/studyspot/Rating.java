@@ -33,22 +33,6 @@ public class Rating {
         return test.matches(VALIDATION_REGEX);
     }
 
-    public String getStars() {
-        String res = "";
-        String blackStar = "\u2605";
-        String whiteStar = "\u2606";
-        int val = Integer.parseInt(value);
-        for (int i = 0; i < val; i++) {
-            res += blackStar;
-        }
-        int remainder = 5 - val;
-        for (int i = 0; i < remainder; i++) {
-            res += whiteStar;
-        }
-        return res;
-
-    }
-
     @Override
     public String toString() {
         return value;
